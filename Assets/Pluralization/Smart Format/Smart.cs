@@ -61,11 +61,11 @@ namespace UnityEngine.Localization.SmartFormat
             // sources for specific types must be in the list before ReflectionSource
             formatter.AddExtensions(
                 listFormatter, // ListFormatter MUST be first
-                new PersistentVariablesSource(formatter),
-                new DictionarySource(formatter),
-                new ValueTupleSource(formatter),
-                new XmlSource(formatter),
-                new ReflectionSource(formatter),
+                // new PersistentVariablesSource(formatter),
+                // new DictionarySource(formatter),
+                // new ValueTupleSource(formatter),
+                // new XmlSource(formatter),
+                // new ReflectionSource(formatter),
 
                 // The DefaultSource reproduces the string.Format behavior:
                 new DefaultSource(formatter)
@@ -73,12 +73,12 @@ namespace UnityEngine.Localization.SmartFormat
             formatter.AddExtensions(
                 listFormatter,
                 new PluralLocalizationFormatter(),
-                new ConditionalFormatter(),
-                new TimeFormatter(),
-                new XElementFormatter(),
-                new ChooseFormatter(),
-                new SubStringFormatter(),
-                new IsMatchFormatter(),
+                // new ConditionalFormatter(),
+                // new TimeFormatter(),
+                // new XElementFormatter(),
+                // new ChooseFormatter(),
+                // new SubStringFormatter(),
+                // new IsMatchFormatter(),
                 new DefaultFormatter()
             );
 
