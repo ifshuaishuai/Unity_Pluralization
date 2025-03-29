@@ -13,7 +13,7 @@ public class TestGC : MonoBehaviour
     {
         int number = 2;
         
-        // 362 B
+        // 248 B
         string result = Smart.Format(_cultureEnglish, "There {0:plural:is 1 item|are {} items}.", number);
     }
 }

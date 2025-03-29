@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Localization.SmartFormat.Core.Extensions;
@@ -39,15 +40,20 @@ namespace UnityEngine.Localization.SmartFormat
                 var placeholder = (Placeholder)item;
                 var childFormattingInfo = formattingInfo.CreateChild(placeholder);
 
-                var formatterName = childFormattingInfo.Placeholder.FormatterName;
+                int startIndex = childFormattingInfo.Placeholder.FormatterNameIndex.Item1;
+                int formatLength = childFormattingInfo.Placeholder.FormatterNameIndex.Item2;
+                
+                ReadOnlySpan<char> formatterName = childFormattingInfo.Placeholder.baseString.AsSpan(startIndex, formatLength);
 
                 // Evaluate the named formatter (or, evaluate all "" formatters)
                 foreach (var formatterExtension in FormatterExtensions)
                 {
-                    if (formatterExtension is IFormatterLiteralExtractor literalExtractor &&
-                        formatterExtension.Names.Contains(formatterName))
+                    if (formatterExtension is IFormatterLiteralExtractor literalExtractor)
                     {
-                        literalExtractor.WriteAllLiterals(childFormattingInfo);
+                        if (formatterExtension.Names.IsArrayContains(formatterName))
+                        {
+                            literalExtractor.WriteAllLiterals(childFormattingInfo);
+                        }
                     }
                 }
             }

@@ -323,25 +323,28 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
 
                             if (namedFormatterOptionsStartIndex == -1)
                             {
-                                var formatterName = format.Substring(namedFormatterStartIndex,
-                                    i - namedFormatterStartIndex);
+                                int formatLength = i - namedFormatterStartIndex;
 
-                                if (FormatterNameExists(formatterName, formatterExtensionNames))
-                                    parentPlaceholder.FormatterName = formatterName;
+                                if (FormatterNameExists(format, namedFormatterStartIndex, formatLength, formatterExtensionNames))
+                                {
+                                    parentPlaceholder.FormatterNameIndex = (namedFormatterStartIndex, formatLength);
+                                }
                                 else
+                                {
                                     lastI = current.startIndex;
+                                }
                             }
                             else
                             {
-                                var formatterName = format.Substring(namedFormatterStartIndex,
-                                    namedFormatterOptionsStartIndex - namedFormatterStartIndex);
+                                int formatLength = namedFormatterOptionsStartIndex - namedFormatterStartIndex;
 
-                                if (FormatterNameExists(formatterName, formatterExtensionNames))
+                                if (FormatterNameExists(format, namedFormatterStartIndex, formatLength, formatterExtensionNames))
                                 {
-                                    parentPlaceholder.FormatterName = formatterName;
-                                    parentPlaceholder.FormatterOptions = format.Substring(
-                                        namedFormatterOptionsStartIndex + 1,
-                                        namedFormatterOptionsEndIndex - (namedFormatterOptionsStartIndex + 1));
+                                    parentPlaceholder.FormatterNameIndex = (namedFormatterStartIndex, formatLength);
+
+                                    int optionStartIndex = namedFormatterOptionsStartIndex + 1;
+                                    int optionLength = namedFormatterOptionsEndIndex - optionStartIndex;
+                                    parentPlaceholder.FormatterOptions = format.Substring(optionStartIndex, optionLength);
                                 }
                                 else
                                 {
@@ -497,12 +500,19 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
             }
         }
 
-        static bool FormatterNameExists(string name, IList<string> formatterExtensionNames)
+        static bool FormatterNameExists(string format, int startIndex, int length, IList<string> formatterExtensionNames)
         {
-            foreach (var fen in formatterExtensionNames)
+            ReadOnlySpan<char> name = format.AsSpan(startIndex, length);
+            
+            for(int i=0; i<formatterExtensionNames.Count; i++)
             {
-                if (fen == name)
+                string fen = formatterExtensionNames[i];
+                bool isSame = MemoryExtensions.Equals(fen, name, StringComparison.Ordinal);
+                
+                if (isSame)
+                {
                     return true;
+                }
             }
             return false;
         }

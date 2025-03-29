@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -39,7 +40,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
 
         public List<Selector> Selectors { get; } = new List<Selector>();
         public int Alignment { get; set; }
-        public string FormatterName { get; set; }
+        public ValueTuple<int, int> FormatterNameIndex { get; set; }
         public string FormatterOptions { get; set; }
         public Format Format { get; set; }
 
@@ -60,10 +61,10 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
                     result.Append(Alignment);
                 }
 
-                if (FormatterName != "")
+                if (FormatterNameIndex.Item1 != 0 && FormatterNameIndex.Item2 != 0)
                 {
                     result.Append(':');
-                    result.Append(FormatterName);
+                    result.Append(baseString.Substring(FormatterNameIndex.Item1, FormatterNameIndex.Item2));
                     if (FormatterOptions != "")
                     {
                         result.Append('(');

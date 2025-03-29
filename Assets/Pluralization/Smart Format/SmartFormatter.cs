@@ -442,12 +442,15 @@ namespace UnityEngine.Localization.SmartFormat
         private bool InvokeFormatterExtensions(FormattingInfo formattingInfo)
         {
             if (formattingInfo.Placeholder == null) return false;
-            var formatterName = formattingInfo.Placeholder.FormatterName;
+            
+            int startIndex = formattingInfo.Placeholder.FormatterNameIndex.Item1;
+            int formatLength = formattingInfo.Placeholder.FormatterNameIndex.Item2;
+            ReadOnlySpan<char> formatterName = formattingInfo.Placeholder.baseString.AsSpan(startIndex, formatLength);
 
             // Evaluate the named formatter (or, evaluate all "" formatters)
             foreach (var formatterExtension in FormatterExtensions)
             {
-                if (!formatterExtension.Names.Contains(formatterName)) continue;
+                if (!formatterExtension.Names.IsArrayContains(formatterName)) continue;
                 var handled = formatterExtension.TryEvaluateFormat(formattingInfo);
                 if (handled) return true;
             }

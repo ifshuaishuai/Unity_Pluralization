@@ -9,6 +9,8 @@ namespace UnityEngine.Localization.SmartFormat
     /// </summary>
     public static class Smart
     {
+        private static object[] s_ArrayCache0 = new object[1];
+            
         /// <inheritdoc cref="SmartFormatter.Format(string, object[])"/>
         public static string Format(string format, params object[] args)
         {
@@ -16,9 +18,11 @@ namespace UnityEngine.Localization.SmartFormat
         }
 
         /// <inheritdoc cref="SmartFormatter.Format(IFormatProvider, string, object[])"/>
-        public static string Format(IFormatProvider provider, string format, params object[] args)
+        public static string Format<T0>(IFormatProvider provider, string format, T0 arg0)
         {
-            return Default.Format(provider, format, args);
+            s_ArrayCache0[0] = arg0;
+            
+            return Default.Format(provider, format, s_ArrayCache0);
         }
 
         /// <inheritdoc cref="Format(string, object[])"/>

@@ -93,9 +93,12 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
 
             if (!Templates.TryGetValue(templateName, out var template))
             {
-                if (Names.Contains(formattingInfo.Placeholder.FormatterName))
-                    throw new FormatException(
-                        $"Formatter '{formattingInfo.Placeholder.FormatterName}' found no registered template named '{templateName}'");
+                int startIndex = formattingInfo.Placeholder.FormatterNameIndex.Item1;
+                int formatLength = formattingInfo.Placeholder.FormatterNameIndex.Item2;
+                
+                ReadOnlySpan<char> formatterName = formattingInfo.Placeholder.baseString.AsSpan(startIndex, formatLength);
+                if (Names.IsArrayContains(formatterName))
+                    throw new FormatException($"Formatter '{formatterName.ToString()}' found no registered template named '{templateName}'");
 
                 return false;
             }

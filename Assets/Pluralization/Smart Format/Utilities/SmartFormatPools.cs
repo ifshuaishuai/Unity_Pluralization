@@ -122,7 +122,7 @@ namespace UnityEngine.Localization.SmartFormat
             var p = s_PlaceholderPool.Get();
             p.Init(smartSettings, parent, startIndex);
             p.NestedDepth = nestedDepth;
-            p.FormatterName = "";
+            p.FormatterNameIndex = (0, 0);
             p.FormatterOptions = "";
             return p;
         }
@@ -133,7 +133,7 @@ namespace UnityEngine.Localization.SmartFormat
             p.Init(smartSettings, parent, startIndex, endIndex);
             p.Format = itemFormat;
             p.NestedDepth = nestedDepth;
-            p.FormatterName = "";
+            p.FormatterNameIndex = (0, 0);
             p.FormatterOptions = "";
             return p;
         }
