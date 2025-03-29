@@ -18,13 +18,6 @@ namespace UnityEngine.Localization.SmartFormat
         private static object[] s_ArrayCache7 = new object[7];
         private static object[] s_ArrayCache8 = new object[8];
         
-            
-        /// <inheritdoc cref="SmartFormatter.Format(string, object[])"/>
-        public static string Format(string format, params object[] args)
-        {
-            return Default.Format(format, args);
-        }
-
         /// <inheritdoc cref="SmartFormatter.Format(IFormatProvider, string, object[])"/>
         public static string Format<T1>(IFormatProvider provider, string format, T1 arg1)
         {
@@ -127,22 +120,45 @@ namespace UnityEngine.Localization.SmartFormat
             return result;
         }
 
-        /// <inheritdoc cref="Format(string, object[])"/>
-        public static string Format(string format, object arg0, object arg1, object arg2)
-        {
-            return Format(format, new[] { arg0, arg1, arg2 });
-        }
-
-        /// <inheritdoc cref="Format(string, object[])"/>
-        public static string Format(string format, object arg0, object arg1)
-        {
-            return Format(format, new[] { arg0, arg1 });
-        }
-
         /// <inheritdoc cref="SmartFormatter.Format(string, object[])"/>
-        public static string Format(string format, object arg0)
+        public static string Format<T1>(string format, T1 arg1)
         {
-            return Default.Format(format, arg0); // call Default.Format in order to avoid infinite recursive method call
+            return Format<T1>(null, format, arg1);
+        }
+        
+        public static string Format<T1, T2>(string format, T1 arg1, T2 arg2)
+        {
+            return Format<T1, T2>(null, format, arg1, arg2);
+        }
+        
+        public static string Format<T1, T2, T3>(string format, T1 arg1, T2 arg2, T3 arg3)
+        {
+            return Format<T1, T2, T3>(null, format, arg1, arg2, arg3);
+        }
+        
+        public static string Format<T1, T2, T3, T4>(string format, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        {
+            return Format<T1, T2, T3, T4>(null, format, arg1, arg2, arg3, arg4);
+        }
+        
+        public static string Format<T1, T2, T3, T4, T5>(string format, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+        {
+            return Format<T1, T2, T3, T4, T5>(null, format, arg1, arg2, arg3, arg4, arg5);
+        }
+        
+        public static string Format<T1, T2, T3, T4, T5, T6>(string format, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+        {
+            return Format<T1, T2, T3, T4, T5, T6>(null, format, arg1, arg2, arg3, arg4, arg5, arg6);
+        }
+        
+        public static string Format<T1, T2, T3, T4, T5, T6, T7>(string format, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        {
+            return Format<T1, T2, T3, T4, T5, T6, T7>(null, format, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        }
+        
+        public static string Format<T1, T2, T3, T4, T5, T6, T7, T8>(string format, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        {
+            return Format<T1, T2, T3, T4, T5, T6, T7, T8>(null, format, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
         }
 
         /// <summary>
