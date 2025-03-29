@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Localization.SmartFormat.Core.Settings;
@@ -50,13 +51,11 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
         /// <summary>
         /// Retrieves the raw text that this item represents.
         /// </summary>
-        public string RawText
+        public ReadOnlySpan<char> RawText
         {
             get
             {
-                if (m_RawText == null)
-                    m_RawText = baseString.Substring(startIndex, endIndex - startIndex);
-                return m_RawText;
+                return baseString.AsSpan(startIndex, endIndex - startIndex);
             }
         }
 
@@ -93,7 +92,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
         {
             return endIndex <= startIndex
                 ? $"Empty ({baseString.Substring(startIndex)})"
-                : $"{RawText}";
+                : $"{RawText.ToString()}";
         }
     }
 }

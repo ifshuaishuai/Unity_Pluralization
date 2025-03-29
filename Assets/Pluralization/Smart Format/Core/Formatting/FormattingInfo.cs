@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine.Localization.SmartFormat.Core.Extensions;
 using UnityEngine.Localization.SmartFormat.Core.Parsing;
@@ -60,12 +61,12 @@ namespace UnityEngine.Localization.SmartFormat.Core.Formatting
 
         public List<FormattingInfo> Children { get; } = new List<FormattingInfo>();
 
-        public void Write(string text)
+        public void Write(ReadOnlySpan<char> text)
         {
             FormatDetails.Output.Write(text, this);
         }
 
-        public void Write(string text, int startIndex, int length)
+        public void Write(ReadOnlySpan<char> text, int startIndex, int length)
         {
             FormatDetails.Output.Write(text, startIndex, length, this);
         }
@@ -83,7 +84,8 @@ namespace UnityEngine.Localization.SmartFormat.Core.Formatting
             return new FormattingException(problemItem, issue, startIndex);
         }
 
-        public string SelectorText => Selector.RawText;
+        public ReadOnlySpan<char> SelectorText => Selector.RawText;
+        public ReadOnlySpan<char> SelectorTextSpan => Selector.RawText;
         public int SelectorIndex => Selector.SelectorIndex;
         public string SelectorOperator => Selector.Operator;
 

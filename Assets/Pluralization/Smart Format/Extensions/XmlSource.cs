@@ -29,7 +29,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
             var element = selectorInfo.CurrentValue as XElement;
             if (element != null)
             {
-                var selector = selectorInfo.SelectorText;
+                var selector = selectorInfo.SelectorText.ToString();
                 // Find elements that match a selector
                 var selectorMatchedElements = element.Elements()
                     .Where(x => x.Name.LocalName == selector).ToList();

@@ -44,7 +44,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
 
             var current = selectorInfo.CurrentValue;
-            var selector = selectorInfo.SelectorText;
+            var selector = selectorInfo.SelectorText.ToString();
 
             if (current == null) return false;
 

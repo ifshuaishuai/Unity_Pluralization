@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using UnityEngine.Localization.SmartFormat.Core.Formatting;
 using UnityEngine.Localization.SmartFormat.Core.Parsing;
@@ -22,7 +23,8 @@ namespace UnityEngine.Localization.SmartFormat.Core.Extensions
         /// <summary>
         /// The selector to evaluate
         /// </summary>
-        string SelectorText { get; }
+        
+        ReadOnlySpan<char> SelectorText { get; }
 
         /// <summary>
         /// The index of the selector in a multi-part selector.

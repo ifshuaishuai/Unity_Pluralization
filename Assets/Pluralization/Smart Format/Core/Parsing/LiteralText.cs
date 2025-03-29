@@ -10,14 +10,14 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
     /// </summary>
     public class LiteralText : FormatItem
     {
-        public override string ToString()
+        public ReadOnlySpan<char> GetString()
         {
             return SmartSettings.ConvertCharacterStringLiterals
                 ? ConvertCharacterLiteralsToUnicode()
                 : RawText;
         }
-
-        private string ConvertCharacterLiteralsToUnicode()
+        
+        private ReadOnlySpan<char> ConvertCharacterLiteralsToUnicode()
         {
             var source = RawText;
 
@@ -28,7 +28,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
                 return source;
 
             // The string length should be 2: escape character \ and literal character
-            if (source.Length < 2) throw new ArgumentException($"Missing escape sequence in literal: \"{source}\"");
+            if (source.Length < 2) throw new ArgumentException($"Missing escape sequence in literal: \"{source.ToString()}\"");
 
             char c;
             switch (source[1])
@@ -67,12 +67,13 @@ namespace UnityEngine.Localization.SmartFormat.Core.Parsing
                     c = '\v';
                     break;
                 case 'u':
-                    if (!int.TryParse(source.Substring(2, source.Length - 2), NumberStyles.HexNumber, null, out var result))
-                        throw new ArgumentException($"Failed to parse unicode escape sequence in literal: \"{source}\"");
+                    ReadOnlySpan<char> subSpan = source.Slice(2, source.Length - 2);
+                    if (!int.TryParse(subSpan, NumberStyles.HexNumber, null, out var result))
+                        throw new ArgumentException($"Failed to parse unicode escape sequence in literal: \"{source.ToString()}\"");
                     c = (char)result;
                     break;
                 default:
-                    throw new ArgumentException($"Unrecognized escape sequence in literal: \"{source}\"");
+                    throw new ArgumentException($"Unrecognized escape sequence in literal: \"{source.ToString()}\"");
             }
 
             return c.ToString();

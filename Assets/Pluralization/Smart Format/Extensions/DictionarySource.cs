@@ -30,7 +30,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
         public bool TryEvaluateSelector(ISelectorInfo selectorInfo)
         {
             var current = selectorInfo.CurrentValue;
-            var selector = selectorInfo.SelectorText;
+            var selector = selectorInfo.SelectorText.ToString();
 
             // See if current is a IDictionary and contains the selector:
             var rawDict = current as IDictionary;

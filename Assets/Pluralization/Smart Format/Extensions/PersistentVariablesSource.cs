@@ -253,7 +253,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
         /// <inheritdoc/>
         public bool TryEvaluateSelector(ISelectorInfo selectorInfo)
         {
-            var selector = selectorInfo.SelectorText;
+            var selector = selectorInfo.SelectorText.ToString();
 
             // First we test the current value
             if (selectorInfo.CurrentValue is IVariableGroup grp && EvaluateLocalGroup(selectorInfo, grp))
@@ -277,7 +277,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
             if (variablleGroup == null)
                 return false;
 
-            if (variablleGroup != null && variablleGroup.TryGetValue(selectorInfo.SelectorText, out var variable))
+            if (variablleGroup != null && variablleGroup.TryGetValue(selectorInfo.SelectorText.ToString(), out var variable))
             {
                 // Add the variable to the cache
                 var cache = selectorInfo.FormatDetails.FormatCache;

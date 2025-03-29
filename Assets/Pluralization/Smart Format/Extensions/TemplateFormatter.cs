@@ -88,7 +88,7 @@ namespace UnityEngine.Localization.SmartFormat.Extensions
             if (templateName == string.Empty)
             {
                 if (formattingInfo.Format.HasNested) return false;
-                templateName = formattingInfo.Format.RawText;
+                templateName = formattingInfo.Format.RawText.ToString();
             }
 
             if (!Templates.TryGetValue(templateName, out var template))

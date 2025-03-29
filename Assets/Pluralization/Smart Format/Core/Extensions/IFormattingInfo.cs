@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using UnityEngine.Localization.SmartFormat.Core.Formatting;
 using UnityEngine.Localization.SmartFormat.Core.Parsing;
@@ -56,7 +57,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Extensions
         /// Writes a string to the output.
         /// </summary>
         /// <param name="text"></param>
-        void Write(string text);
+        void Write(ReadOnlySpan<char> text);
 
         /// <summary>
         /// Writes a substring to the output.
@@ -64,7 +65,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Extensions
         /// <param name="text"></param>
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
-        void Write(string text, int startIndex, int length);
+        void Write(ReadOnlySpan<char> text, int startIndex, int length);
 
         /// <summary>
         /// Writes the nested format to the output.

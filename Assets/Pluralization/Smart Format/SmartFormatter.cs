@@ -301,7 +301,7 @@ namespace UnityEngine.Localization.SmartFormat
             {
                 if (item is LiteralText literalItem)
                 {
-                    formattingInfo.Write(literalItem.ToString());
+                    formattingInfo.Write(literalItem.GetString());
                     continue;
                 }
 
@@ -344,7 +344,7 @@ namespace UnityEngine.Localization.SmartFormat
             FormattingInfo formattingInfo)
         {
             OnFormattingFailure?.Invoke(this,
-                new FormattingErrorEventArgs(errorItem.RawText, startIndex,
+                new FormattingErrorEventArgs(errorItem.RawText.ToString(), startIndex,
                     Settings.FormatErrorAction != ErrorAction.ThrowError));
             switch (Settings.FormatErrorAction)
             {
@@ -404,7 +404,7 @@ namespace UnityEngine.Localization.SmartFormat
                 }
 
                 if (!handled)
-                    throw formattingInfo.FormattingException($"Could not evaluate the selector \"{selector.RawText}\"",
+                    throw formattingInfo.FormattingException($"Could not evaluate the selector \"{selector.RawText.ToString()}\"",
                         selector);
             }
         }

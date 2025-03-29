@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using UnityEngine.Localization.SmartFormat.Core.Extensions;
 
@@ -32,14 +33,14 @@ namespace UnityEngine.Localization.SmartFormat.Core.Output
                 output.Capacity = capacity;
         }
 
-        public void Write(string text, IFormattingInfo formattingInfo)
+        public void Write(ReadOnlySpan<char> text, IFormattingInfo formattingInfo)
         {
             output.Append(text);
         }
 
-        public void Write(string text, int startIndex, int length, IFormattingInfo formattingInfo)
+        public void Write(ReadOnlySpan<char> text, int startIndex, int length, IFormattingInfo formattingInfo)
         {
-            output.Append(text, startIndex, length);
+            output.Append(text.Slice(startIndex, length));
         }
 
         public void Clear()

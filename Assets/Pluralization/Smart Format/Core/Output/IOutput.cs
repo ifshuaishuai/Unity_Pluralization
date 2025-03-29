@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.Localization.SmartFormat.Core.Extensions;
 
 namespace UnityEngine.Localization.SmartFormat.Core.Output
@@ -12,7 +13,7 @@ namespace UnityEngine.Localization.SmartFormat.Core.Output
         /// </summary>
         /// <param name="text"></param>
         /// <param name="formattingInfo"></param>
-        void Write(string text, IFormattingInfo formattingInfo);
+        void Write(ReadOnlySpan<char> text, IFormattingInfo formattingInfo);
 
         /// <summary>
         /// Writes a substring to the output.
@@ -21,6 +22,6 @@ namespace UnityEngine.Localization.SmartFormat.Core.Output
         /// <param name="startIndex"></param>
         /// <param name="length"></param>
         /// <param name="formattingInfo"></param>
-        void Write(string text, int startIndex, int length, IFormattingInfo formattingInfo);
+        void Write(ReadOnlySpan<char> text, int startIndex, int length, IFormattingInfo formattingInfo);
     }
 }
