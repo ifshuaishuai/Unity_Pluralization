@@ -11,7 +11,7 @@ public class TestPluralization
     private CultureInfo _cultureEnglish = CultureInfo.GetCultureInfo("en");
     
     [Test]
-    public void OneItem()
+    public void ThereIsOneItem()
     {
         int number = 1;
         
@@ -22,7 +22,7 @@ public class TestPluralization
     }
     
     [Test]
-    public void TwoItems()
+    public void ThereAreTwoItems()
     {
         int number = 2;
         
